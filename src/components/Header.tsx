@@ -1,13 +1,14 @@
-import { SquareCheck } from "lucide-react";
+import { SquareCheck, LogOut } from "lucide-react";
 import { type RefObject, useEffect, useRef } from "react";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 
 interface HeaderProps {
   completeTaskCount: number;
+  onLogout: () => void;
 }
 
-export default function Header({ completeTaskCount }: HeaderProps) {
+export default function Header({ completeTaskCount, onLogout }: HeaderProps) {
   const heading: RefObject<null> = useRef(null);
   const icon: RefObject<null> = useRef(null);
 
@@ -26,23 +27,32 @@ export default function Header({ completeTaskCount }: HeaderProps) {
   }, []);
 
   return (
-    <>
-      <h1 ref={heading}>
-        Simple{" "}
-        <span ref={icon} className="inline">
-          <SquareCheck
-            aria-hidden="true"
-            className="text-purple-600 inline size-7 -translate-y-1"
-            strokeWidth={2.5}
-          />
-        </span>
-        <br />
-        TODO List
-      </h1>
+    <div className="flex justify-between items-start">
+      <div>
+        <h1 ref={heading}>
+          Simple{" "}
+          <span ref={icon} className="inline">
+            <SquareCheck
+              aria-hidden="true"
+              className="text-purple-600 inline size-7 -translate-y-1"
+              strokeWidth={2.5}
+            />
+          </span>
+          <br />
+          TODO List
+        </h1>
 
-      <p aria-live="polite" className="text-gray-500 text-xs mt-2 uppercase">
-        {completeTaskCount} tasks remaining
-      </p>
-    </>
+        <p aria-live="polite" className="text-gray-500 text-xs mt-2 uppercase">
+          {completeTaskCount} tasks remaining
+        </p>
+      </div>
+      <button
+        onClick={onLogout}
+        className="cursor-pointer flex items-center gap-2 px-3 py-2 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 rounded-md hover:bg-red-50 transition-colors"
+      >
+        <LogOut size={16} />
+        Logout
+      </button>
+    </div>
   );
 }

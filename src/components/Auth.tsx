@@ -43,48 +43,50 @@ export default function Auth() {
   };
 
   return (
-    <div className="auth-container">
-      <div className="auth-card">
-        <h1>{isLogin ? "Login" : "Sign Up"}</h1>
+    <div>
+      <h1 className="mb-6">{isLogin ? "Login" : "Sign Up"}</h1>
 
-        <form onSubmit={isLogin ? handleLogin : handleSignup}>
-          <input
-            className="input-box"
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+      <form onSubmit={isLogin ? handleLogin : handleSignup}>
+        <input
+          className="input-box w-full"
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
 
-          <input
-            className="input-box"
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-
-          <button className="btn a11y-rings" type="submit" disabled={loading}>
-            {loading ? "Loading..." : isLogin ? "Login" : "Sign Up"}
-          </button>
-        </form>
-
-        {error && <p className="error">{error}</p>}
+        <input
+          className="input-box w-full"
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
 
         <button
-          className="cursor-pointer border border-gray-400 rounded-md p-2 mt-4"
-          onClick={() => {
-            setIsLogin(!isLogin);
-            setError(null);
-          }}
+          className="btn py-3 mt-4 a11y-rings w-full"
+          type="submit"
+          disabled={loading}
         >
-          {isLogin
-            ? "Don't have an account? Sign up"
-            : "Already have an account? Login"}
+          {loading ? "Loading..." : isLogin ? "Login" : "Sign Up"}
         </button>
-      </div>
+      </form>
+
+      {error && <p className="error">{error}</p>}
+
+      <button
+        className="cursor-pointer a11y-rings focus-visible:border-transparent  border border-gray-400 rounded-md p-2 mt-4"
+        onClick={() => {
+          setIsLogin(!isLogin);
+          setError(null);
+        }}
+      >
+        {isLogin
+          ? "Don't have an account? Sign up"
+          : "Already have an account? Login"}
+      </button>
     </div>
   );
 }

@@ -9,6 +9,7 @@ import AddTask from "./components/AddTask";
 import TodoList from "./components/TodoList.tsx";
 import Auth from "./components/Auth.tsx";
 import type { Task } from "./utils/tasks.ts";
+import * as domain from "node:domain";
 
 gsap.registerPlugin(SplitText);
 
@@ -41,7 +42,11 @@ function App() {
   }, [tasks]);
 
   if (!session) {
-    return <Auth />;
+    return (
+      <main className="min-h-dvh max-w-3xl mx-auto px-4 py-8">
+        <Auth />
+      </main>
+    );
   }
 
   return (

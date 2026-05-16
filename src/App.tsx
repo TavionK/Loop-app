@@ -9,7 +9,6 @@ import AddTask from "./components/AddTask";
 import TodoList from "./components/TodoList.tsx";
 import Auth from "./components/Auth.tsx";
 import type { Task } from "./utils/tasks.ts";
-import * as domain from "node:domain";
 
 gsap.registerPlugin(SplitText);
 
@@ -55,6 +54,7 @@ function App() {
         completeTaskCount={
           tasks.filter((task: Task): boolean => !task.isComplete).length
         }
+        onLogout={() => supabase.auth.signOut()}
       />
       <AddTask setTask={setTask} />
       <hr className="my-8 border-gray-600" />

@@ -1,0 +1,67 @@
+import * as React from "react";
+import { supabase } from "../supabaseClient.ts";
+import { useState } from "react";
+
+export default function Login() {
+  const [loading, setLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError(null);
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
+      setError(error.message);
+    }
+    setLoading(false);
+  };
+
+  return (
+    <div>
+      <div className="my-6">
+        <h1 className="mb-2">Welcome Back</h1>
+        <p className="subheading">Sign in to keep your day on track.</p>
+      </div>
+
+      <form onSubmit={handleLogin}>
+        <input
+          aria-label="Email"
+          className="input-box w-full"
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+
+        <input
+          aria-label="Password"
+          className="input-box w-full"
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+
+        <button
+          className="btn py-3 mt-4 a11y-rings w-full"
+          type="submit"
+          disabled={loading}
+        >
+          {loading ? "Loading..." : "Sign in"}
+        </button>
+      </form>
+
+      {error && <p className="error">{error}</p>}
+    </div>
+  );
+}

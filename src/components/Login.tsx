@@ -67,7 +67,7 @@ export default function Login() {
         {error && <p className="error">{error}</p>}
         <Link
           to="/forgot-password"
-          className="cursor-pointer text-purple-800 text-sm mt-4 text-right"
+          className="cursor-pointer link text-sm mt-4 text-right"
         >
           Forgot Password?
         </Link>
@@ -77,7 +77,7 @@ export default function Login() {
 
       <p className="text-center text-sm">
         New to Loop?{" "}
-        <Link to="/signup" className="text-purple-800">
+        <Link to="/signup" className="link">
           Create an account
         </Link>
       </p>

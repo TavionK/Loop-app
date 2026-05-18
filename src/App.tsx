@@ -12,6 +12,7 @@ import type { Task } from "./utils/tasks.ts";
 import Signup from "./components/Signup.tsx";
 import Login from "./components/Login.tsx";
 import ForgotPassword from "./components/ForgotPassword.tsx";
+import UpdatePassword from "./components/UpdatePassword.tsx";
 
 gsap.registerPlugin(SplitText);
 
@@ -80,6 +81,16 @@ function App() {
           </main>
         }
       />
+
+      <Route
+        path="/update-password"
+        element={
+          <main className="min-h-dvh max-w-lg mx-auto px-6 py-8 flex flex-col">
+            <UpdatePassword />
+          </main>
+        }
+      />
+
       {/* App route - only accessible when logged in */}
       <Route
         path="/"

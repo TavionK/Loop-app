@@ -1,6 +1,17 @@
+import { IoMdArrowBack } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
+
 export default function Terms() {
+  const navigate = useNavigate();
   return (
     <>
+      <button
+        onClick={() => navigate(-1)}
+        className="cursor-pointer mb-4 flex items-center w-fit px-2 py-1 bg-white text-gray-600 rounded-md border border-gray-300 hover:text-gray-900 transition-all duration-300 ease-in-out hover:drop-shadow-sm/25"
+      >
+        <IoMdArrowBack />
+        Back
+      </button>
       <h1 className="text-4xl font-bold mb-2">Terms of Service</h1>
       <p className="text-sm text-gray-500 mb-8">Last Updated: May 18, 2026</p>
 

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { supabase } from "../supabaseClient.ts";
+import * as React from "react";
 
 export default function Auth() {
   const [loading, setLoading] = useState(false);
@@ -40,6 +41,16 @@ export default function Auth() {
       setError("Check your email for the confirmation link!");
     }
     setLoading(false);
+  };
+
+  const handleGoogleLogin = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+    });
+
+    if (error) {
+      setError(error.message);
+    }
   };
 
   return (
@@ -86,6 +97,10 @@ export default function Auth() {
         {isLogin
           ? "Don't have an account? Sign up"
           : "Already have an account? Login"}
+      </button>
+      <p>Other options</p>
+      <button onClick={handleGoogleLogin} className="btn">
+        Sign in with Google
       </button>
     </div>
   );

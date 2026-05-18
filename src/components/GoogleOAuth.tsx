@@ -2,7 +2,7 @@ import { useState } from "react";
 import { supabase } from "../supabaseClient.ts";
 import { FcGoogle } from "react-icons/fc";
 
-export default function Auth() {
+export default function GoogleOAuth() {
   const [error, setError] = useState<string | null>(null);
 
   const handleGoogleLogin = async () => {

@@ -1,47 +1,12 @@
 import { useState } from "react";
 import { supabase } from "../supabaseClient.ts";
-import * as React from "react";
+import Login from "./Login.tsx";
+import Signup from "./Signup.tsx";
+import { FcGoogle } from "react-icons/fc";
 
 export default function Auth() {
-  const [loading, setLoading] = useState(false);
   const [isLogin, setIsLogin] = useState(true);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
-
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (error) {
-      setError(error.message);
-    }
-    setLoading(false);
-  };
-
-  const handleSignup = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
-
-    if (error) {
-      setError(error.message);
-    } else {
-      setError("Check your email for the confirmation link!");
-    }
-    setLoading(false);
-  };
 
   const handleGoogleLogin = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
@@ -55,38 +20,25 @@ export default function Auth() {
 
   return (
     <div>
-      <h1 className="mb-6">{isLogin ? "Login" : "Sign Up"}</h1>
+      {isLogin ? <Login /> : <Signup />}
 
-      <form onSubmit={isLogin ? handleLogin : handleSignup}>
-        <input
-          className="input-box w-full"
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+      <div className="relative flex items-center my-6">
+        <div className="grow border-t border-gray-300"></div>
+        <span className="mx-4 text-sm text-gray-500">OR</span>
+        <div className="grow border-t border-gray-300"></div>
+      </div>
 
-        <input
-          className="input-box w-full"
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+      <button
+        onClick={handleGoogleLogin}
+        className="btn btn-secondary w-full flex items-center justify-center gap-2"
+      >
+        <FcGoogle />
+        Continue with Google
+      </button>
 
-        <button
-          className="btn py-3 mt-4 a11y-rings w-full"
-          type="submit"
-          disabled={loading}
-        >
-          {loading ? "Loading..." : isLogin ? "Login" : "Sign Up"}
-        </button>
-      </form>
+      {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
 
-      {error && <p className="error">{error}</p>}
-
+      {/*Toggle between login and signup*/}
       <button
         className="cursor-pointer a11y-rings focus-visible:border-transparent  border border-gray-400 rounded-md p-2 mt-4"
         onClick={() => {
@@ -97,10 +49,6 @@ export default function Auth() {
         {isLogin
           ? "Don't have an account? Sign up"
           : "Already have an account? Login"}
-      </button>
-      <p>Other options</p>
-      <button onClick={handleGoogleLogin} className="btn">
-        Sign in with Google
       </button>
     </div>
   );

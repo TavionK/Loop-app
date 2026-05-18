@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 import { supabase } from "./supabaseClient.ts";
@@ -7,8 +8,9 @@ import type { Session } from "@supabase/supabase-js";
 import Header from "./components/Header";
 import AddTask from "./components/AddTask";
 import TodoList from "./components/TodoList.tsx";
-import Auth from "./components/Auth.tsx";
 import type { Task } from "./utils/tasks.ts";
+import Signup from "./components/Signup.tsx";
+import Login from "./components/Login.tsx";
 
 gsap.registerPlugin(SplitText);
 
@@ -40,26 +42,57 @@ function App() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
-  if (!session) {
-    return (
-      <main className="min-h-dvh max-w-lg mx-auto px-6 py-8 flex flex-col">
-        <Auth />
-      </main>
-    );
-  }
-
   return (
-    <main className="min-h-dvh max-w-3xl mx-auto px-6 py-8">
-      <Header
-        completeTaskCount={
-          tasks.filter((task: Task): boolean => !task.isComplete).length
+    <Routes>
+      {/* Auth Routes when no session is present */}
+      <Route
+        path="/login"
+        element={
+          !session ? (
+            <main className="min-h-dvh max-w-lg mx-auto px-6 py-8 flex flex-col">
+              <Login />
+            </main>
+          ) : (
+            <Navigate to="/" replace />
+          )
         }
-        onLogout={() => supabase.auth.signOut()}
       />
-      <AddTask setTask={setTask} />
-      <hr className="my-8 border-gray-600" />
-      <TodoList tasks={tasks} setTask={setTask} />
-    </main>
+
+      <Route
+        path="/signup"
+        element={
+          !session ? (
+            <main className="min-h-dvh max-w-lg mx-auto px-6 py-8 flex flex-col">
+              <Signup />
+            </main>
+          ) : (
+            <Navigate to="/" replace />
+          )
+        }
+      />
+
+      {/* Todo app route - only accessible when logged in */}
+      <Route
+        path="/"
+        element={
+          session ? (
+            <main className="min-h-dvh max-w-3xl mx-auto px-6 py-8">
+              <Header
+                completeTaskCount={
+                  tasks.filter((task: Task): boolean => !task.isComplete).length
+                }
+                onLogout={() => supabase.auth.signOut()}
+              />
+              <AddTask setTask={setTask} />
+              <hr className="my-8 border-gray-600" />
+              <TodoList tasks={tasks} setTask={setTask} />
+            </main>
+          ) : (
+            <Navigate to="/login" replace />
+          )
+        }
+      />
+    </Routes>
   );
 }
 

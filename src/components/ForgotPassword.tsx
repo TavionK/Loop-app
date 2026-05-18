@@ -51,7 +51,7 @@ export default function ForgotPassword() {
           </button>
         </form>
 
-        {message && <p className="text-green-600 text-sm mt-4">{message}</p>}
+        {message && <p className="error text-sm mt-4">{message}</p>}
         {error && <p className="text-red-500 text-sm mt-4">{error}</p>}
       </div>
 

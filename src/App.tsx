@@ -42,14 +42,14 @@ function App() {
 
   if (!session) {
     return (
-      <main className="min-h-dvh max-w-lg mx-auto px-4 py-8">
+      <main className="min-h-dvh max-w-lg mx-auto px-6 py-8">
         <Auth />
       </main>
     );
   }
 
   return (
-    <main className="min-h-dvh max-w-3xl mx-auto px-4 py-8">
+    <main className="min-h-dvh max-w-3xl mx-auto px-6 py-8">
       <Header
         completeTaskCount={
           tasks.filter((task: Task): boolean => !task.isComplete).length

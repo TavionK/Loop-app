@@ -40,17 +40,29 @@ export default function Auth() {
         {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
       </div>
       {/*Toggle between login and signup*/}
-      <button
-        className="cursor-pointer a11y-rings focus-visible:border-transparent  border border-gray-400 rounded-md p-2 mt-4"
-        onClick={() => {
-          setIsLogin(!isLogin);
-          setError(null);
-        }}
-      >
-        {isLogin
-          ? "Don't have an account? Sign up"
-          : "Already have an account? Login"}
-      </button>
+      <p className="text-center">
+        {isLogin ? (
+          <>
+            Don't have an account?{" "}
+            <span
+              onClick={() => setIsLogin(!isLogin)}
+              className="cursor-pointer text-purple-800 font-semibold underline"
+            >
+              Sign up
+            </span>
+          </>
+        ) : (
+          <>
+            Already have an account?{" "}
+            <span
+              onClick={() => setIsLogin(!isLogin)}
+              className="cursor-pointer text-purple-800 font-semibold underline"
+            >
+              Login
+            </span>
+          </>
+        )}
+      </p>
     </div>
   );
 }

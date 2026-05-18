@@ -4,6 +4,7 @@ import { useState } from "react";
 
 export default function Signup() {
   const [loading, setLoading] = useState(false);
+  const [displayName, setDisplayName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -16,6 +17,11 @@ export default function Signup() {
     const { error } = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        data: {
+          display_name: displayName,
+        },
+      },
     });
 
     if (error) {
@@ -34,6 +40,15 @@ export default function Signup() {
       </div>
 
       <form onSubmit={handleSignup}>
+        <input
+          className="input-box w-full"
+          type="text"
+          placeholder="Display Name"
+          value={displayName}
+          onChange={(e) => setDisplayName(e.target.value)}
+          required
+        />
+
         <input
           className="input-box w-full"
           type="email"

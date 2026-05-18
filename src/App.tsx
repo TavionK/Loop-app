@@ -11,6 +11,7 @@ import TodoList from "./components/TodoList.tsx";
 import type { Task } from "./utils/tasks.ts";
 import Signup from "./components/Signup.tsx";
 import Login from "./components/Login.tsx";
+import ForgotPassword from "./components/ForgotPassword.tsx";
 
 gsap.registerPlugin(SplitText);
 
@@ -71,6 +72,14 @@ function App() {
         }
       />
 
+      <Route
+        path="/forgot-password"
+        element={
+          <main className="min-h-dvh max-w-lg mx-auto px-6 py-8 flex flex-col">
+            <ForgotPassword />
+          </main>
+        }
+      />
       {/* App route - only accessible when logged in */}
       <Route
         path="/"

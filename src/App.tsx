@@ -71,7 +71,7 @@ function App() {
         }
       />
 
-      {/* Todo app route - only accessible when logged in */}
+      {/* App route - only accessible when logged in */}
       <Route
         path="/"
         element={

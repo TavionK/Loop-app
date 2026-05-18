@@ -44,7 +44,7 @@ function App() {
 
   return (
     <Routes>
-      {/* Auth Routes when no session is present */}
+      {/* Routes when no session is present */}
       <Route
         path="/login"
         element={

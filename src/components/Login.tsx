@@ -2,7 +2,7 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "../supabaseClient.ts";
 import { useState } from "react";
-import Auth from "./Auth.tsx";
+import GoogleOAuth from "./GoogleOAuth.tsx";
 
 // interface LoginProps {
 //   setView: (
@@ -84,7 +84,7 @@ export default function Login() {
           Forgot Password?
         </Link>
 
-        <Auth />
+        <GoogleOAuth />
       </div>
 
       <p className="text-center text-sm">

@@ -2,7 +2,7 @@ import * as React from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "../supabaseClient.ts";
 import { useState } from "react";
-import Auth from "./Auth.tsx";
+import GoogleOAuth from "./GoogleOAuth.tsx";
 
 export default function Signup() {
   const [loading, setLoading] = useState(false);
@@ -80,7 +80,7 @@ export default function Signup() {
           </button>
         </form>
 
-        <Auth />
+        <GoogleOAuth />
       </div>
 
       <p className="text-center text-sm">

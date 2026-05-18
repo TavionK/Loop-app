@@ -33,13 +33,13 @@ export default function AddTask({ setTask }: AddTaskProps) {
         required
         type="text"
         placeholder="Add Item..."
-        className="border border-gray-400 bg-gray-300 rounded-md w-full p-2 text-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-600 focus-visible:border-transparent h-10"
+        className="border border-gray-400 rounded-md w-full px-4 text-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-600 focus-visible:border-transparent h-12"
       />
       <button
         aria-label="Add Item"
-        className="bg-purple-600 p-2 text-white rounded-md cursor-pointer hover:bg-purple-700 transition-colors duration-200 ease-in-out size-10 flex items-center justify-center shrink-0 a11y-rings"
+        className="bg-purple-600 p-2 text-white rounded-md cursor-pointer hover:bg-purple-700 transition-colors duration-200 ease-in-out size-12 flex items-center justify-center shrink-0 a11y-rings"
       >
-        <Plus className="size-5" strokeWidth={3} />
+        <Plus strokeWidth={2} />
       </button>
     </form>
   );

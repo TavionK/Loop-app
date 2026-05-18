@@ -13,6 +13,8 @@ import Signup from "./components/Signup.tsx";
 import Login from "./components/Login.tsx";
 import ForgotPassword from "./components/ForgotPassword.tsx";
 import UpdatePassword from "./components/UpdatePassword.tsx";
+import Terms from "./components/Terms.tsx";
+import PrivacyPolicy from "./components/PrivacyPolicy.tsx";
 
 gsap.registerPlugin(SplitText);
 
@@ -87,6 +89,24 @@ function App() {
         element={
           <main className="min-h-dvh max-w-lg mx-auto px-6 py-8 flex flex-col">
             <UpdatePassword />
+          </main>
+        }
+      />
+
+      <Route
+        path="/terms-of-service"
+        element={
+          <main className="min-h-dvh max-w-lg mx-auto px-6 py-8 flex flex-col">
+            <Terms />
+          </main>
+        }
+      />
+
+      <Route
+        path="/privacy-policy"
+        element={
+          <main className="min-h-dvh max-w-lg mx-auto px-6 py-8 flex flex-col">
+            <PrivacyPolicy />
           </main>
         }
       />

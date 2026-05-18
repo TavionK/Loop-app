@@ -71,6 +71,17 @@ export default function Signup() {
           />
 
           {error && <p className="error">{error}</p>}
+          <p className="text-xs text-gray-500 mt-4">
+            By signing up you agree to our{" "}
+            <Link className="link" to="/terms-of-service">
+              Terms
+            </Link>{" "}
+            and{" "}
+            <Link className="link" to="/privacy-policy">
+              Privacy Policy
+            </Link>
+            .
+          </p>
           <button
             className="btn py-3 mt-4 a11y-rings w-full"
             type="submit"

@@ -11,6 +11,9 @@
 }
 
 @layer components {
+    .link {
+        @apply text-purple-800 font-semibold;
+    }
     .error {
         @apply w-full p-2 bg-green-200 rounded-md text-green-800 text-center;
     }

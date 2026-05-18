@@ -95,7 +95,7 @@ export default function PrivacyPolicy() {
           <strong>Email:</strong>{" "}
           <a
             href="mailto:tavion.k.britt99@gmail.com"
-            className="text-purple-600 hover:text-purple-700 underline"
+            className="link underline"
           >
             tavion.k.britt99@gmail.com
           </a>

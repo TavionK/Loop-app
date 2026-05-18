@@ -3,9 +3,12 @@ import { supabase } from "../supabaseClient.ts";
 import Login from "./Login.tsx";
 import Signup from "./Signup.tsx";
 import { FcGoogle } from "react-icons/fc";
+import ResetPassword from "./ResetPassword.tsx";
 
 export default function Auth() {
-  const [isLogin, setIsLogin] = useState(true);
+  const [view, setView] = useState<"login" | "signup" | "reset-password">(
+    "login",
+  );
   const [error, setError] = useState<string | null>(null);
 
   const handleGoogleLogin = async () => {
@@ -21,7 +24,9 @@ export default function Auth() {
   return (
     <div className="flex flex-col justify-between grow">
       <div>
-        {isLogin ? <Login /> : <Signup />}
+        {view === "login" && <Login setView={setView} />}
+        {view === "signup" && <Signup />}
+        {view === "reset-password" && <ResetPassword />}
 
         <div className="relative flex items-center my-6">
           <div className="grow border-t border-gray-300"></div>
@@ -41,21 +46,22 @@ export default function Auth() {
       </div>
       {/*Toggle between login and signup*/}
       <p className="text-center">
-        {isLogin ? (
+        {view === "login" && (
           <>
             Don't have an account?{" "}
             <span
-              onClick={() => setIsLogin(!isLogin)}
+              onClick={() => setView("signup")}
               className="cursor-pointer text-purple-800 font-semibold underline"
             >
               Sign up
             </span>
           </>
-        ) : (
+        )}
+        {view === "signup" && (
           <>
             Already have an account?{" "}
             <span
-              onClick={() => setIsLogin(!isLogin)}
+              onClick={() => setView("login")}
               className="cursor-pointer text-purple-800 font-semibold underline"
             >
               Login

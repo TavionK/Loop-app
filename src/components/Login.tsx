@@ -2,7 +2,19 @@ import * as React from "react";
 import { supabase } from "../supabaseClient.ts";
 import { useState } from "react";
 
-export default function Login() {
+interface LoginProps {
+  setView: (
+    value:
+      | ((
+          prevState: "login" | "signup" | "reset-password",
+        ) => "login" | "signup" | "reset-password")
+      | "login"
+      | "signup"
+      | "reset-password",
+  ) => void;
+}
+
+export default function Login({ setView }: LoginProps) {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,7 +37,7 @@ export default function Login() {
   };
 
   return (
-    <div>
+    <div className="flex flex-col">
       <div className="my-6">
         <h1 className="mb-2">Welcome Back</h1>
         <p className="subheading">Sign in to keep your day on track.</p>
@@ -62,6 +74,12 @@ export default function Login() {
       </form>
 
       {error && <p className="error">{error}</p>}
+      <button
+        className="cursor-pointer text-purple-800 text-sm mt-4 text-right"
+        onClick={() => setView("reset-password")}
+      >
+        Forgot Password?
+      </button>
     </div>
   );
 }

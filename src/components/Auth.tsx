@@ -19,25 +19,26 @@ export default function Auth() {
   };
 
   return (
-    <div>
-      {isLogin ? <Login /> : <Signup />}
+    <div className="flex flex-col justify-between grow">
+      <div>
+        {isLogin ? <Login /> : <Signup />}
 
-      <div className="relative flex items-center my-6">
-        <div className="grow border-t border-gray-300"></div>
-        <span className="mx-4 text-sm text-gray-500">OR</span>
-        <div className="grow border-t border-gray-300"></div>
+        <div className="relative flex items-center my-6">
+          <div className="grow border-t border-gray-300"></div>
+          <span className="mx-4 text-sm text-gray-500">OR</span>
+          <div className="grow border-t border-gray-300"></div>
+        </div>
+
+        <button
+          onClick={handleGoogleLogin}
+          className="btn btn-secondary w-full flex items-center justify-center gap-2"
+        >
+          <FcGoogle aria-label="Google Icon" />
+          Continue with Google
+        </button>
+
+        {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
       </div>
-
-      <button
-        onClick={handleGoogleLogin}
-        className="btn btn-secondary w-full flex items-center justify-center gap-2"
-      >
-        <FcGoogle />
-        Continue with Google
-      </button>
-
-      {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-
       {/*Toggle between login and signup*/}
       <button
         className="cursor-pointer a11y-rings focus-visible:border-transparent  border border-gray-400 rounded-md p-2 mt-4"

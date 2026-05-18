@@ -4,18 +4,6 @@ import { supabase } from "../supabaseClient.ts";
 import { useState } from "react";
 import GoogleOAuth from "./GoogleOAuth.tsx";
 
-// interface LoginProps {
-//   setView: (
-//     value:
-//       | ((
-//           prevState: "login" | "signup" | "reset-password",
-//         ) => "login" | "signup" | "reset-password")
-//       | "login"
-//       | "signup"
-//       | "reset-password",
-//   ) => void;
-// }
-
 export default function Login() {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
@@ -78,7 +66,7 @@ export default function Login() {
 
         {error && <p className="error">{error}</p>}
         <Link
-          to="/reset-password"
+          to="/forgot-password"
           className="cursor-pointer text-purple-800 text-sm mt-4 text-right"
         >
           Forgot Password?

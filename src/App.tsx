@@ -42,7 +42,7 @@ function App() {
 
   if (!session) {
     return (
-      <main className="min-h-dvh max-w-lg mx-auto px-6 py-8">
+      <main className="min-h-dvh max-w-lg mx-auto px-6 py-8 flex flex-col">
         <Auth />
       </main>
     );

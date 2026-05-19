@@ -8,19 +8,19 @@ A clean, minimal task manager built with React and TypeScript, featuring smooth 
 - **TypeScript** – Fully typed components, props, and utility functions
 - **Vite** – Fast dev server and build tooling
 - **Tailwind CSS v4** – Utility-first styling with a dark theme
-- **GSAP + SplitText** – Animated text and icon entrance on load
+- **GSAP + SplitText** – Animated text and icon entrance on a load
 - **Radix UI** – Accessible, unstyled checkbox primitive
 - **Lucide React** – Lightweight icon set
 
 ## Features
 
 - Add tasks with input validation
-- Mark tasks as complete via accessible Radix UI checkbox primitive
+- Mark tasks as complete via an accessible Radix UI checkbox primitive
 - Delete individual tasks
 - Clear all completed tasks at once
 - Clear all tasks with a single button
 - Persistent storage via `localStorage` — tasks survive page refreshes
-- GSAP-powered heading animation on initial load
+- GSAP-powered heading animation on the initial load
 
 ## Live Demo
 

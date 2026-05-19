@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type SubmitEvent } from "react";
 import { supabase } from "../supabaseClient.ts";
 import { Link, useNavigate } from "react-router-dom";
 import GoogleOAuth from "./GoogleOAuth.tsx";
@@ -10,7 +10,7 @@ export default function UpdatePassword() {
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  const handleUpdatePassword = async (e: React.SubmitEvent) => {
+  const handleUpdatePassword = async (e: SubmitEvent) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {

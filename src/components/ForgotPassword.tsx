@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type SubmitEvent } from "react";
 import { supabase } from "../supabaseClient.ts";
 import { Link } from "react-router-dom";
 
@@ -8,7 +8,7 @@ export default function ForgotPassword() {
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const handleResetPassword = async (e: React.SubmitEvent) => {
+  const handleResetPassword = async (e: SubmitEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);

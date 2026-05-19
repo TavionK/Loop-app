@@ -1,7 +1,6 @@
-import * as React from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "../supabaseClient.ts";
-import { useState } from "react";
+import { useState, type SubmitEvent } from "react";
 import GoogleOAuth from "./GoogleOAuth.tsx";
 
 export default function Login() {
@@ -10,7 +9,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
 
-  const handleLogin = async (e: React.SubmitEvent) => {
+  const handleLogin = async (e: SubmitEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);

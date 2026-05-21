@@ -15,6 +15,7 @@ import ForgotPassword from "./pages/ForgotPassword.tsx";
 import UpdatePassword from "./pages/UpdatePassword.tsx";
 import Terms from "./pages/Terms.tsx";
 import PrivacyPolicy from "./pages/PrivacyPolicy.tsx";
+import Settings from "./pages/Settings.tsx";
 
 gsap.registerPlugin(SplitText);
 
@@ -108,6 +109,19 @@ function App() {
           <main className="min-h-dvh max-w-lg mx-auto px-6 py-8 flex flex-col">
             <PrivacyPolicy />
           </main>
+        }
+      />
+
+      <Route
+        path="/settings"
+        element={
+          session ? (
+            <main className="min-h-dvh max-w-lg mx-auto px-6 py-8">
+              <Settings />
+            </main>
+          ) : (
+            <Navigate to="/login" replace />
+          )
         }
       />
 

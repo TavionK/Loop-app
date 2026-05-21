@@ -1,12 +1,18 @@
 import { IoMdArrowBack } from "react-icons/io";
 import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "../supabaseClient.ts";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Pencil, X, Check } from "lucide-react";
 
 export default function Settings() {
   const navigate = useNavigate();
   const [email, setEmail] = useState<string | null>(null);
   const [displayName, setDisplayName] = useState<string | null>(null);
+  const [editingName, setEditingName] = useState(false);
+  const [nameInput, setNameInput] = useState("");
+  const [savingName, setSavingName] = useState(false);
+  const [nameError, setNameError] = useState<string | null>(null);
+  const nameInputRef = useRef<HTMLInputElement>(null);
   const [deleting, setDeleting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -29,6 +35,37 @@ export default function Settings() {
 
     loadProfile();
   }, []);
+
+  function startEditing() {
+    setNameInput(displayName ?? "");
+    setNameError(null);
+    setEditingName(true);
+    setTimeout(() => nameInputRef.current?.focus(), 0);
+  }
+
+  function cancelEditing() {
+    setEditingName(false);
+    setNameError(null);
+  }
+
+  async function handleSaveName() {
+    if (!nameInput.trim()) {
+      setNameError("Name cannot be empty.");
+      return;
+    }
+    setSavingName(true);
+    setNameError(null);
+    const { error } = await supabase.auth.updateUser({
+      data: { display_name: nameInput.trim() },
+    });
+    if (error) {
+      setNameError(error.message);
+    } else {
+      setDisplayName(nameInput.trim());
+      setEditingName(false);
+    }
+    setSavingName(false);
+  }
 
   const handleDeleteAccount = async () => {
     if (
@@ -68,7 +105,52 @@ export default function Settings() {
             <span className="text-xs uppercase tracking-wide text-gray-500 mb-1">
               Name
             </span>
-            <span className="text-gray-800">{displayName ?? "—"}</span>
+            {editingName ? (
+              <div className="flex flex-col gap-2">
+                <div className="flex items-center gap-2">
+                  <input
+                    ref={nameInputRef}
+                    type="text"
+                    value={nameInput}
+                    onChange={(e) => setNameInput(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") handleSaveName();
+                      if (e.key === "Escape") cancelEditing();
+                    }}
+                    className="input-box my-0 h-9 text-sm"
+                  />
+                  <button
+                    onClick={handleSaveName}
+                    disabled={savingName}
+                    title="Save"
+                    className="cursor-pointer p-1.5 text-green-600 border border-green-300 rounded-md hover:bg-green-50 transition-colors duration-200 disabled:opacity-50"
+                  >
+                    <Check size={15} />
+                  </button>
+                  <button
+                    onClick={cancelEditing}
+                    title="Cancel"
+                    className="cursor-pointer p-1.5 text-gray-500 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors duration-200"
+                  >
+                    <X size={15} />
+                  </button>
+                </div>
+                {nameError && (
+                  <p className="text-red-500 text-xs">{nameError}</p>
+                )}
+              </div>
+            ) : (
+              <div className="flex items-center gap-2">
+                <span className="text-gray-800">{displayName ?? "—"}</span>
+                <button
+                  onClick={startEditing}
+                  title="Edit name"
+                  className="cursor-pointer p-1 text-gray-400 hover:text-gray-700 transition-colors duration-200"
+                >
+                  <Pencil size={14} />
+                </button>
+              </div>
+            )}
           </div>
           <div className="flex flex-col">
             <span className="text-xs uppercase tracking-wide text-gray-500 mb-1">

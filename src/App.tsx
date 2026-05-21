@@ -9,12 +9,12 @@ import Header from "./components/Header";
 import AddTask from "./components/AddTask";
 import TodoList from "./components/TodoList.tsx";
 import type { Task } from "./utils/tasks.ts";
-import Signup from "./components/Signup.tsx";
-import Login from "./components/Login.tsx";
-import ForgotPassword from "./components/ForgotPassword.tsx";
-import UpdatePassword from "./components/UpdatePassword.tsx";
-import Terms from "./components/Terms.tsx";
-import PrivacyPolicy from "./components/PrivacyPolicy.tsx";
+import Signup from "./pages/Signup.tsx";
+import Login from "./pages/Login.tsx";
+import ForgotPassword from "./pages/ForgotPassword.tsx";
+import UpdatePassword from "./pages/UpdatePassword.tsx";
+import Terms from "./pages/Terms.tsx";
+import PrivacyPolicy from "./pages/PrivacyPolicy.tsx";
 
 gsap.registerPlugin(SplitText);
 

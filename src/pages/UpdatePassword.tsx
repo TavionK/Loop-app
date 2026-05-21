@@ -1,7 +1,7 @@
 import { useEffect, useState, type SubmitEvent } from "react";
 import { supabase } from "../supabaseClient.ts";
 import { Link, useNavigate } from "react-router-dom";
-import GoogleOAuth from "./GoogleOAuth.tsx";
+import GoogleOAuth from "../components/GoogleOAuth.tsx";
 
 export default function UpdatePassword() {
   const [password, setPassword] = useState("");

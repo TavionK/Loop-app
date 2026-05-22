@@ -1,8 +1,5 @@
 import { SquareCheck, LogOut, Settings } from "lucide-react";
-import { type RefObject, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import gsap from "gsap";
-import { SplitText } from "gsap/SplitText";
 
 interface HeaderProps {
   completeTaskCount: number;
@@ -10,29 +7,12 @@ interface HeaderProps {
 }
 
 export default function Header({ completeTaskCount, onLogout }: HeaderProps) {
-  const heading: RefObject<null> = useRef(null);
-  const icon: RefObject<null> = useRef(null);
-
-  useEffect((): void => {
-    const split = new SplitText(heading.current, { type: "chars" });
-    const tl: gsap.core.Timeline = gsap.timeline();
-
-    tl.from(split.chars, { opacity: 0, y: 10, stagger: 0.05, duration: 0.6 });
-    tl.from(".lucide-square-check", {
-      opacity: 0,
-      y: -50,
-      duration: 0.6,
-      delay: 1,
-      ease: "bounce.out(1.5)",
-    });
-  }, []);
-
   return (
     <div className="flex justify-between items-start">
       <div>
-        <h1 ref={heading}>
+        <h1>
           Simple{" "}
-          <span ref={icon} className="inline">
+          <span className="inline">
             <SquareCheck
               aria-hidden="true"
               className="text-purple-600 inline size-7 -translate-y-1"

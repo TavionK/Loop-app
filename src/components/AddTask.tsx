@@ -1,6 +1,11 @@
 import { Plus } from "lucide-react";
 import { type Task, addTask } from "../utils/tasks.ts";
-import { type Dispatch, type SetStateAction, useState } from "react";
+import {
+  type ComponentProps,
+  type Dispatch,
+  type SetStateAction,
+  useState,
+} from "react";
 import { supabase } from "../supabaseClient.ts";
 
 interface AddTaskProps {
@@ -11,7 +16,9 @@ interface AddTaskProps {
 export default function AddTask({ setTask, userId }: AddTaskProps) {
   const [inputValue, setInputValue] = useState("");
 
-  async function handleSubmit(e: SubmitEvent) {
+  const handleSubmit: NonNullable<ComponentProps<"form">["onSubmit"]> = async (
+    e,
+  ) => {
     e.preventDefault();
     const title = inputValue.trim();
     if (!title) return;
@@ -27,7 +34,7 @@ export default function AddTask({ setTask, userId }: AddTaskProps) {
     const newTask: Task = { id: data.id, text: title, isComplete: false };
     setTask((prev) => addTask(prev, newTask));
     setInputValue("");
-  }
+  };
 
   return (
     <form

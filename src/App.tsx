@@ -140,12 +140,7 @@ function App() {
         element={
           session ? (
             <main className="min-h-dvh max-w-3xl mx-auto px-6 py-8">
-              <Header
-                completeTaskCount={
-                  tasks.filter((task: Task): boolean => !task.isComplete).length
-                }
-                onLogout={() => supabase.auth.signOut()}
-              />
+              <Header onLogout={() => supabase.auth.signOut()} />
               <AddTask setTask={setTask} userId={session.user.id} />
               <hr className="my-8 border-gray-600" />
               <TodoList tasks={tasks} setTask={setTask} />

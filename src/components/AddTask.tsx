@@ -1,26 +1,37 @@
 import { Plus } from "lucide-react";
 import { type Task, addTask } from "../utils/tasks.ts";
 import { type Dispatch, type SetStateAction, useState } from "react";
+import { supabase } from "../supabaseClient.ts";
 
 interface AddTaskProps {
   setTask: Dispatch<SetStateAction<Task[]>>;
+  userId: string;
 }
 
-export default function AddTask({ setTask }: AddTaskProps) {
+export default function AddTask({ setTask, userId }: AddTaskProps) {
   const [inputValue, setInputValue] = useState("");
+
+  async function handleSubmit(e: SubmitEvent) {
+    e.preventDefault();
+    const title = inputValue.trim();
+    if (!title) return;
+
+    const { data, error } = await supabase
+      .from("tasks")
+      .insert({ user_id: userId, title })
+      .select("id")
+      .single();
+
+    if (error || !data) return;
+
+    const newTask: Task = { id: data.id, text: title, isComplete: false };
+    setTask((prev) => addTask(prev, newTask));
+    setInputValue("");
+  }
 
   return (
     <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        const newTask = {
-          id: crypto.randomUUID(),
-          text: inputValue,
-          isComplete: false,
-        };
-        setTask((prevTask: Task[]) => addTask(prevTask, newTask));
-        setInputValue("");
-      }}
+      onSubmit={handleSubmit}
       className="flex justify-between items-center gap-4 mt-10"
     >
       <label htmlFor="inputBox" className="sr-only">

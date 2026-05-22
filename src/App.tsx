@@ -22,30 +22,43 @@ gsap.registerPlugin(SplitText);
 function App() {
   const [session, setSession] = useState<Session | null>(null);
 
-  const [tasks, setTask] = useState<Task[]>(() => {
-    const storedTasks: string | null = localStorage.getItem("tasks");
-    return storedTasks ? JSON.parse(storedTasks) : [];
-  });
+  const [tasks, setTask] = useState<Task[]>([]);
 
-  // Check for active session on mount and listen for auth changes
   useEffect(() => {
+    async function loadTasks(userId: string) {
+      const { data } = await supabase
+        .from("tasks")
+        .select("id, title, completed")
+        .eq("user_id", userId);
+      if (data) {
+        setTask(
+          data.map((row) => ({
+            id: row.id,
+            text: row.title,
+            isComplete: row.completed ?? false,
+          })),
+        );
+      }
+    }
+
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
+      if (session) loadTasks(session.user.id);
     });
 
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
+      if (session) {
+        loadTasks(session.user.id);
+      } else {
+        setTask([]);
+      }
     });
 
     return () => subscription.unsubscribe();
   }, []);
-
-  // Saves the list to local storage whenever the task array changes
-  useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
 
   return (
     <Routes>
@@ -137,7 +150,7 @@ function App() {
                 }
                 onLogout={() => supabase.auth.signOut()}
               />
-              <AddTask setTask={setTask} />
+              <AddTask setTask={setTask} userId={session.user.id} />
               <hr className="my-8 border-gray-600" />
               <TodoList tasks={tasks} setTask={setTask} />
             </main>

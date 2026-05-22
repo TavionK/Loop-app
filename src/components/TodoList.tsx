@@ -2,6 +2,7 @@ import type { Task } from "../utils/tasks.ts";
 import ListItem from "./ListItem.tsx";
 import type { Dispatch, SetStateAction } from "react";
 import { clearAllTasks, deleteCompletedTasks } from "../utils/tasks.ts";
+import { supabase } from "../supabaseClient.ts";
 
 interface TodoListProps {
   tasks: Task[];
@@ -9,11 +10,15 @@ interface TodoListProps {
 }
 
 export default function TodoList({ tasks, setTask }: TodoListProps) {
-  function handleClearCompleted() {
+  async function handleClearCompleted() {
+    const ids = tasks.filter((t) => t.isComplete).map((t) => t.id);
+    if (ids.length) await supabase.from("tasks").delete().in("id", ids);
     setTask(deleteCompletedTasks(tasks));
   }
 
-  function handleClearAll() {
+  async function handleClearAll() {
+    const ids = tasks.map((t) => t.id);
+    if (ids.length) await supabase.from("tasks").delete().in("id", ids);
     setTask(clearAllTasks);
   }
 

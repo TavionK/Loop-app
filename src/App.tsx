@@ -43,7 +43,7 @@ function App() {
 
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
-      if (session) loadTasks(session.user.id);
+      if (session) void loadTasks(session.user.id);
     });
 
     const {
@@ -51,7 +51,7 @@ function App() {
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
       if (session) {
-        loadTasks(session.user.id);
+        void loadTasks(session.user.id);
       } else {
         setTask([]);
       }

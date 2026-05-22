@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { supabase } from "../supabaseClient.ts";
 import { useState, type SubmitEvent } from "react";
-import GoogleOAuth from "./GoogleOAuth.tsx";
+import GoogleOAuth from "../components/GoogleOAuth.tsx";
 
 export default function Signup() {
   const [loading, setLoading] = useState(false);

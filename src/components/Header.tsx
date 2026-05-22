@@ -1,5 +1,6 @@
-import { SquareCheck, LogOut } from "lucide-react";
+import { SquareCheck, LogOut, Settings } from "lucide-react";
 import { type RefObject, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 
@@ -46,13 +47,22 @@ export default function Header({ completeTaskCount, onLogout }: HeaderProps) {
           {completeTaskCount} tasks remaining
         </p>
       </div>
-      <button
-        onClick={onLogout}
-        className="cursor-pointer flex items-center gap-2 px-3 py-2 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 rounded-md hover:bg-red-50 transition-colors duration-300 ease-in-out"
-      >
-        <LogOut size={16} />
-        Logout
-      </button>
+      <div className="flex items-center gap-2">
+        <Link
+          to="/settings"
+          className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors duration-300 ease-in-out"
+        >
+          <Settings size={16} />
+          Settings
+        </Link>
+        <button
+          onClick={onLogout}
+          className="cursor-pointer flex items-center gap-2 px-3 py-2 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 rounded-md hover:bg-red-50 transition-colors duration-300 ease-in-out"
+        >
+          <LogOut size={16} />
+          Logout
+        </button>
+      </div>
     </div>
   );
 }

@@ -2,6 +2,7 @@ import type { Task } from "../utils/tasks.ts";
 import { Trash2 } from "lucide-react";
 import { deleteTask, toggleTask } from "../utils/tasks.ts";
 import type { Dispatch, SetStateAction } from "react";
+import { supabase } from "../supabaseClient.ts";
 import { Checkbox } from "radix-ui";
 import { CheckIcon } from "@radix-ui/react-icons";
 
@@ -11,7 +12,8 @@ interface ListItemProps {
 }
 
 export default function ListItem({ listItem, setTask }: ListItemProps) {
-  function handleDelete() {
+  async function handleDelete() {
+    await supabase.from("tasks").delete().eq("id", listItem.id);
     setTask((prevTask: Task[]) => deleteTask(prevTask, listItem));
   }
 
@@ -19,8 +21,12 @@ export default function ListItem({ listItem, setTask }: ListItemProps) {
     <li className="bg-gray-300 border border-gray-400 rounded-md py-2 px-4 flex justify-between items-center text-lg">
       <div className="flex items-center gap-4">
         <Checkbox.Root
-          onKeyDown={(e) => {
+          onKeyDown={async (e) => {
             if (e.key === "Enter") {
+              await supabase
+                .from("tasks")
+                .update({ completed: !listItem.isComplete })
+                .eq("id", listItem.id);
               setTask((prevTask: Task[]) => toggleTask(prevTask, listItem));
             }
           }}
@@ -28,7 +34,11 @@ export default function ListItem({ listItem, setTask }: ListItemProps) {
           checked={listItem.isComplete}
           aria-label={`Toggle ${listItem.text} Completion`}
           id={`${listItem.id}`}
-          onCheckedChange={() => {
+          onCheckedChange={async () => {
+            await supabase
+              .from("tasks")
+              .update({ completed: !listItem.isComplete })
+              .eq("id", listItem.id);
             setTask((prevTask: Task[]) => toggleTask(prevTask, listItem));
           }}
         >

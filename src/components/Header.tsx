@@ -21,6 +21,7 @@ export default function Header({ onLogout }: HeaderProps) {
       <div className="flex items-center gap-2">
         <Link
           to="/settings"
+          aria-label="Settings"
           className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors duration-300 ease-in-out"
         >
           <Settings size={16} />
@@ -28,6 +29,7 @@ export default function Header({ onLogout }: HeaderProps) {
         </Link>
         <button
           onClick={onLogout}
+          aria-label="Logout"
           className="cursor-pointer flex items-center gap-2 px-3 py-2 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 rounded-md hover:bg-red-50 transition-colors duration-300 ease-in-out"
         >
           <LogOut size={16} />

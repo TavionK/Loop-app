@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import gsap from "gsap";
-import { SplitText } from "gsap/SplitText";
 import { supabase } from "./supabaseClient.ts";
 import type { Session } from "@supabase/supabase-js";
 
@@ -16,8 +14,6 @@ import UpdatePassword from "./pages/UpdatePassword.tsx";
 import Terms from "./pages/Terms.tsx";
 import PrivacyPolicy from "./pages/PrivacyPolicy.tsx";
 import Settings from "./pages/Settings.tsx";
-
-gsap.registerPlugin(SplitText);
 
 function App() {
   const [session, setSession] = useState<Session | null>(null);

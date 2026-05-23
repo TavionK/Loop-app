@@ -15,7 +15,7 @@ export default function ForgotPassword() {
     setMessage(null);
 
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: "https://loop-todo-list.netlify.app/update-password",
+      redirectTo: `${window.location.origin}/update-password`,
     });
 
     if (error) {
@@ -36,7 +36,9 @@ export default function ForgotPassword() {
           </p>
         </div>
         <form onSubmit={handleResetPassword}>
-          <label htmlFor="email" className="sr-only">Email</label>
+          <label htmlFor="email" className="sr-only">
+            Email
+          </label>
           <input
             id="email"
             type="email"
@@ -53,8 +55,16 @@ export default function ForgotPassword() {
           </button>
         </form>
 
-        {message && <p role="alert" className="error text-sm mt-4">{message}</p>}
-        {error && <p role="alert" className="text-red-500 text-sm mt-4">{error}</p>}
+        {message && (
+          <p role="alert" className="error text-sm mt-4">
+            {message}
+          </p>
+        )}
+        {error && (
+          <p role="alert" className="text-red-500 text-sm mt-4">
+            {error}
+          </p>
+        )}
       </div>
 
       <p className="text-center text-sm">

@@ -2,6 +2,9 @@
 
 A clean, minimal task manager built with React and TypeScript, featuring user authentication and cloud-synced tasks, styled with Tailwind CSS.
 
+## Live Demo
+**[Try Loop](https://loop.yourdomain.com)**
+
 ## Tech Stack
 
 - **React** – Component-based UI with hooks (`useState`, `useEffect`, `useRef`)
@@ -25,8 +28,6 @@ A clean, minimal task manager built with React and TypeScript, featuring user au
 - Clear all tasks with a single button
 - Tasks are persisted to Supabase and synced across sessions
 - Protected routes — unauthenticated users are redirected to `/login`
-
-## Live Demo
 
 ## Screenshots
 

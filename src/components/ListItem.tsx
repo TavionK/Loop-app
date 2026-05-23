@@ -48,7 +48,7 @@ export default function ListItem({ listItem, setTask }: ListItemProps) {
 
       <span
         className={`flex-1 text-base ${
-          listItem.isComplete ? "line-through text-gray-400" : "text-gray-900"
+          listItem.isComplete ? "line-through text-gray-500" : "text-gray-900"
         }`}
       >
         {listItem.text}

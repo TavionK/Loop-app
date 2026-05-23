@@ -21,7 +21,7 @@ export default function TodoList({ tasks, setTask }: TodoListProps) {
       <div className="flex items-center justify-between mb-3">
         <span
           aria-live="polite"
-          className="text-xs font-semibold text-gray-400 uppercase tracking-wider"
+          className="text-xs font-semibold text-gray-600 uppercase tracking-wider"
         >
           Tasks · {tasks.length}
         </span>
@@ -35,7 +35,7 @@ export default function TodoList({ tasks, setTask }: TodoListProps) {
 
       <ul className="border-t border-gray-100">
         {tasks.length === 0 ? (
-          <p className="text-gray-400 text-sm text-center py-12">
+          <p className="text-gray-600 text-sm text-center py-12">
             No tasks yet — add one below.
           </p>
         ) : (

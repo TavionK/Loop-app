@@ -15,7 +15,7 @@ export default function ForgotPassword() {
     setMessage(null);
 
     const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: "http://localhost:5173/update-password",
+      redirectTo: "https://loop-todo-list.netlify.app/update-password",
     });
 
     if (error) {

@@ -39,10 +39,10 @@ export default function AddTask({ setTask, userId }: AddTaskProps) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex justify-between items-center gap-4 mt-10"
+      className="flex items-center gap-2 border border-gray-200 rounded-full px-3 py-2 shadow-lg"
     >
       <label htmlFor="inputBox" className="sr-only">
-        Input Task
+        Add a task
       </label>
       <input
         id="inputBox"
@@ -50,14 +50,14 @@ export default function AddTask({ setTask, userId }: AddTaskProps) {
         onChange={(e) => setInputValue(e.target.value)}
         required
         type="text"
-        placeholder="Add Item..."
-        className="border border-gray-400 rounded-md w-full px-4 text-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-600 focus-visible:border-transparent h-12"
+        placeholder="Add a task..."
+        className="flex-1 text-sm text-gray-900 placeholder-gray-400 bg-transparent outline-none"
       />
       <button
         aria-label="Add Item"
-        className="bg-purple-600 p-2 text-white rounded-md cursor-pointer hover:bg-purple-700 transition-colors duration-200 ease-in-out size-12 flex items-center justify-center shrink-0 a11y-rings"
+        className="bg-purple-600 text-white rounded-full size-8 flex items-center justify-center shrink-0 hover:bg-purple-700 transition-colors duration-200 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-600 focus-visible:ring-offset-2"
       >
-        <Plus strokeWidth={2} />
+        <Plus strokeWidth={2.2} size={15} />
       </button>
     </form>
   );

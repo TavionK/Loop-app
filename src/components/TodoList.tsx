@@ -1,7 +1,7 @@
 import type { Task } from "../utils/tasks.ts";
 import ListItem from "./ListItem.tsx";
 import type { Dispatch, SetStateAction } from "react";
-import { clearAllTasks, deleteCompletedTasks } from "../utils/tasks.ts";
+import { clearAllTasks } from "../utils/tasks.ts";
 import { supabase } from "../supabaseClient.ts";
 
 interface TodoListProps {
@@ -10,12 +10,6 @@ interface TodoListProps {
 }
 
 export default function TodoList({ tasks, setTask }: TodoListProps) {
-  async function handleClearCompleted() {
-    const ids = tasks.filter((t) => t.isComplete).map((t) => t.id);
-    if (ids.length) await supabase.from("tasks").delete().in("id", ids);
-    setTask(deleteCompletedTasks(tasks));
-  }
-
   async function handleClearAll() {
     const ids = tasks.map((t) => t.id);
     if (ids.length) await supabase.from("tasks").delete().in("id", ids);
@@ -23,41 +17,34 @@ export default function TodoList({ tasks, setTask }: TodoListProps) {
   }
 
   return (
-    <>
-      <div className="text-gray-500 text-xs mt-2 uppercase flex justify-start gap-1">
-        <p aria-live="polite">
-          {tasks.length} total {tasks.length === 1 ? "task" : "tasks"} |
-        </p>
+    <section aria-label="Todo List">
+      <div className="flex items-center justify-between mb-3">
+        <span
+          aria-live="polite"
+          className="text-xs font-semibold text-gray-400 uppercase tracking-wider"
+        >
+          Tasks · {tasks.length}
+        </span>
         <button
           onClick={handleClearAll}
-          className="cursor-pointer underline font-semibold text-purple-800  a11y-rings focus-visible:no-underline uppercase"
+          className="text-xs font-semibold text-purple-600 uppercase tracking-wider cursor-pointer hover:text-purple-800 transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-600 rounded"
         >
-          Clear All
+          Clear all
         </button>
       </div>
-      <section aria-label="Todo List" className="mt-8">
-        <ul className="space-y-4">
-          {tasks.length === 0 ? (
-            <p className="text-gray-600 text-center text-lg translate-y-10">
-              No tasks, add one above.
-            </p>
-          ) : (
-            tasks.map((task: Task) => (
-              <ListItem key={task.id} listItem={task} setTask={setTask} />
-            ))
-          )}
-        </ul>
-      </section>
-      {tasks.length > 0 && (
-        <div className="flex justify-center mt-8">
-          <button
-            onClick={handleClearCompleted}
-            className="text-white bg-purple-600 px-3 py-2 rounded-md cursor-pointer hover:bg-purple-700 transition-colors duration-200 ease-in-out a11y-rings tracking-wide"
-          >
-            Clear Completed
-          </button>
-        </div>
-      )}
-    </>
+
+      <ul className="border-t border-gray-100">
+        {tasks.length === 0 ? (
+          <p className="text-gray-400 text-sm text-center py-12">
+            No tasks yet — add one below.
+          </p>
+        ) : (
+          tasks.map((task: Task) => (
+            <ListItem key={task.id} listItem={task} setTask={setTask} />
+          ))
+        )}
+      </ul>
+
+    </section>
   );
 }

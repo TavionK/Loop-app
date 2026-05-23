@@ -6,7 +6,7 @@
     }
 
     h1 {
-        @apply text-3xl text-left font-bold tracking-wide;
+        @apply text-3xl text-left font-semibold tracking-tight;
     }
 }
 

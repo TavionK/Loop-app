@@ -139,11 +139,17 @@ function App() {
         path="/"
         element={
           session ? (
-            <main className="min-h-dvh max-w-3xl mx-auto px-6 py-8">
-              <Header onLogout={() => supabase.auth.signOut()} />
-              <AddTask setTask={setTask} userId={session.user.id} />
-              <hr className="my-8 border-gray-600" />
+            <main className="min-h-dvh max-w-lg mx-auto px-6 py-10 flex flex-col">
+              <Header
+                remainingCount={
+                  tasks.filter((task: Task): boolean => !task.isComplete).length
+                }
+                onLogout={() => supabase.auth.signOut()}
+              />
               <TodoList tasks={tasks} setTask={setTask} />
+              <div className="mt-auto pt-6">
+<AddTask setTask={setTask} userId={session.user.id} />
+              </div>
             </main>
           ) : (
             <Navigate to="/login" replace />

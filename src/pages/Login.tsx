@@ -34,8 +34,9 @@ export default function Login() {
         </div>
 
         <form onSubmit={handleLogin}>
+          <label htmlFor="email" className="sr-only">Email</label>
           <input
-            aria-label="Email"
+            id="email"
             className="input-box w-full"
             type="email"
             placeholder="Email"
@@ -44,8 +45,9 @@ export default function Login() {
             required
           />
 
+          <label htmlFor="password" className="sr-only">Password</label>
           <input
-            aria-label="Password"
+            id="password"
             className="input-box w-full"
             type="password"
             placeholder="Password"
@@ -63,7 +65,18 @@ export default function Login() {
           </button>
         </form>
 
-        {error && <p className="error">{error}</p>}
+        {error && (
+          <p
+            role="alert"
+            className={`mt-4 w-full p-2 rounded-md text-center text-sm ${
+              error.toLowerCase().includes("invalid")
+                ? "bg-red-100 text-red-700"
+                : "error"
+            }`}
+          >
+            {error}
+          </p>
+        )}
         <Link
           to="/forgot-password"
           className="cursor-pointer link text-sm mt-4 text-right"

@@ -2,47 +2,54 @@ import { SquareCheck, LogOut, Settings } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface HeaderProps {
-  completeTaskCount: number;
+  remainingCount: number;
+  displayName: string | null;
   onLogout: () => void;
 }
 
-export default function Header({ completeTaskCount, onLogout }: HeaderProps) {
+export default function Header({ remainingCount, displayName, onLogout }: HeaderProps) {
   return (
-    <div className="flex justify-between items-start">
-      <div>
-        <h1>
-          Simple{" "}
-          <span className="inline">
-            <SquareCheck
-              aria-hidden="true"
-              className="text-purple-600 inline size-7 -translate-y-1"
-              strokeWidth={2.5}
-            />
+    <header className="mb-10">
+      <div className="flex justify-between items-center mb-6">
+        <div className="flex items-center gap-1.5">
+          <SquareCheck
+            aria-hidden="true"
+            className="text-purple-600 size-4"
+            strokeWidth={2.5}
+          />
+          <span className="text-purple-600 text-xs font-semibold uppercase tracking-wider">
+            Loop
           </span>
-          <br />
-          TODO List
-        </h1>
+        </div>
+        <div className="flex items-center gap-3">
+          <Link
+            to="/settings"
+            aria-label="Settings"
+            className="flex items-center gap-1.5 text-xs font-medium text-gray-600 hover:text-gray-800 border border-gray-200 rounded-md px-3 py-1.5 transition-colors duration-200"
+          >
+            <Settings size={14} />
+            <span className="hidden sm:inline">Settings</span>
+          </Link>
+          <button
+            onClick={onLogout}
+            aria-label="Logout"
+            className="flex items-center gap-1.5 text-xs font-medium text-gray-600 hover:text-gray-800 border border-gray-200 rounded-md px-3 py-1.5 transition-colors duration-200 cursor-pointer"
+          >
+            <LogOut size={14} />
+            <span className="hidden sm:inline">Logout</span>
+          </button>
+        </div>
+      </div>
 
-        <p aria-live="polite" className="text-gray-500 text-xs mt-2 uppercase">
-          {completeTaskCount} tasks remaining
-        </p>
-      </div>
-      <div className="flex items-center gap-2">
-        <Link
-          to="/settings"
-          className="flex items-center gap-2 px-3 py-2 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors duration-300 ease-in-out"
-        >
-          <Settings size={16} />
-          Settings
-        </Link>
-        <button
-          onClick={onLogout}
-          className="cursor-pointer flex items-center gap-2 px-3 py-2 text-sm text-gray-600 hover:text-gray-900 border border-gray-300 rounded-md hover:bg-red-50 transition-colors duration-300 ease-in-out"
-        >
-          <LogOut size={16} />
-          Logout
-        </button>
-      </div>
-    </div>
+      {displayName && (
+        <p className="text-sm text-gray-600 mb-1">Welcome back, {displayName}!</p>
+      )}
+      <h1 className="text-5xl font-light tracking-tight text-gray-900 leading-tight">
+        Today,{" "}
+        <span className="font-semibold">{remainingCount}</span>
+        <br />
+        <span className="text-gray-500">to go.</span>
+      </h1>
+    </header>
   );
 }

@@ -18,50 +18,50 @@ export default function ListItem({ listItem, setTask }: ListItemProps) {
   }
 
   return (
-    <li className="bg-gray-300 border border-gray-400 rounded-md py-2 px-4 flex justify-between items-center text-lg">
-      <div className="flex items-center gap-4">
-        <Checkbox.Root
-          onKeyDown={async (e) => {
-            if (e.key === "Enter") {
-              await supabase
-                .from("tasks")
-                .update({ completed: !listItem.isComplete })
-                .eq("id", listItem.id);
-              setTask((prevTask: Task[]) => toggleTask(prevTask, listItem));
-            }
-          }}
-          className="flex items-center justify-center size-5 shrink-0 rounded-md appearance-none  bg-gray-100 outline-none border border-gray-500 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600 cursor-pointer a11y-rings"
-          checked={listItem.isComplete}
-          aria-label={`Toggle ${listItem.text} Completion`}
-          id={`${listItem.id}`}
-          onCheckedChange={async () => {
+    <li className="flex items-center gap-3 py-4 border-b border-gray-100">
+      <Checkbox.Root
+        onKeyDown={async (e) => {
+          if (e.key === "Enter") {
             await supabase
               .from("tasks")
               .update({ completed: !listItem.isComplete })
               .eq("id", listItem.id);
             setTask((prevTask: Task[]) => toggleTask(prevTask, listItem));
-          }}
-        >
-          <Checkbox.Indicator className="flex items-center justify-center text-white">
-            <CheckIcon />
-          </Checkbox.Indicator>
-        </Checkbox.Root>
-        {!listItem.isComplete ? (
-          <p>{listItem.text}</p>
-        ) : (
-          <p className="line-through text-gray-600">{listItem.text}</p>
-        )}
-      </div>
+          }
+        }}
+        className="flex items-center justify-center size-5 shrink-0 rounded-full border border-gray-300 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-600 focus-visible:ring-offset-1"
+        checked={listItem.isComplete}
+        aria-label={`Toggle ${listItem.text} Completion`}
+        id={`${listItem.id}`}
+        onCheckedChange={async () => {
+          await supabase
+            .from("tasks")
+            .update({ completed: !listItem.isComplete })
+            .eq("id", listItem.id);
+          setTask((prevTask: Task[]) => toggleTask(prevTask, listItem));
+        }}
+      >
+        <Checkbox.Indicator className="flex items-center justify-center text-white">
+          <CheckIcon className="size-3" />
+        </Checkbox.Indicator>
+      </Checkbox.Root>
+
+      <span
+        className={`flex-1 text-base ${
+          listItem.isComplete ? "line-through text-gray-500" : "text-gray-900"
+        }`}
+      >
+        {listItem.text}
+      </span>
+
       <button
         aria-label={`Delete ${listItem.text}`}
-        className="group rounded-md cursor-pointer p-2  focus-visible:outline-red-500 focus-visible:outline-2"
+        className="group rounded p-1 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400"
         onClick={handleDelete}
       >
         <Trash2
-          strokeWidth={2}
-          className="size-4 text-gray-600 cursor-pointer
-          group-focus-visible:text-red-500 group-hover:text-red-500 outline-none
-          transition-colors duration-200 ease-in-out"
+          strokeWidth={1.4}
+          className="size-4 text-gray-300 group-hover:text-red-400 group-focus-visible:text-red-400 transition-colors duration-200"
         />
       </button>
     </li>

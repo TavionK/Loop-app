@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 
 interface HeaderProps {
   remainingCount: number;
+  displayName: string | null;
   onLogout: () => void;
 }
 
-export default function Header({ remainingCount, onLogout }: HeaderProps) {
+export default function Header({ remainingCount, displayName, onLogout }: HeaderProps) {
   return (
     <header className="mb-10">
-      <div className="flex justify-between items-center mb-10">
+      <div className="flex justify-between items-center mb-6">
         <div className="flex items-center gap-1.5">
           <SquareCheck
             aria-hidden="true"
@@ -24,7 +25,7 @@ export default function Header({ remainingCount, onLogout }: HeaderProps) {
           <Link
             to="/settings"
             aria-label="Settings"
-            className="flex items-center gap-1.5 text-xs font-medium text-gray-400 hover:text-gray-600 border border-gray-200 rounded-full px-3 py-1.5 transition-colors duration-200"
+            className="flex items-center gap-1.5 text-xs font-medium text-gray-400 hover:text-gray-600 border border-gray-200 rounded-md px-3 py-1.5 transition-colors duration-200"
           >
             <Settings size={14} />
             <span className="hidden sm:inline">Settings</span>
@@ -32,7 +33,7 @@ export default function Header({ remainingCount, onLogout }: HeaderProps) {
           <button
             onClick={onLogout}
             aria-label="Logout"
-            className="flex items-center gap-1.5 text-xs font-medium text-gray-400 hover:text-gray-600 border border-gray-200 rounded-full px-3 py-1.5 transition-colors duration-200 cursor-pointer"
+            className="flex items-center gap-1.5 text-xs font-medium text-gray-400 hover:text-gray-600 border border-gray-200 rounded-md px-3 py-1.5 transition-colors duration-200 cursor-pointer"
           >
             <LogOut size={14} />
             <span className="hidden sm:inline">Logout</span>
@@ -40,6 +41,9 @@ export default function Header({ remainingCount, onLogout }: HeaderProps) {
         </div>
       </div>
 
+      {displayName && (
+        <p className="text-sm text-gray-400 mb-1">Welcome back, {displayName}!</p>
+      )}
       <h1 className="text-5xl font-light tracking-tight text-gray-900 leading-tight">
         Today,{" "}
         <span className="font-semibold">{remainingCount}</span>

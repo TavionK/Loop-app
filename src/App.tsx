@@ -144,6 +144,12 @@ function App() {
                 remainingCount={
                   tasks.filter((task: Task): boolean => !task.isComplete).length
                 }
+                displayName={
+                  session.user.user_metadata?.display_name ??
+                  session.user.user_metadata?.full_name ??
+                  session.user.user_metadata?.name ??
+                  null
+                }
                 onLogout={() => supabase.auth.signOut()}
               />
               <TodoList tasks={tasks} setTask={setTask} />

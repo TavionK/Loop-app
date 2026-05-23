@@ -30,6 +30,10 @@ A clean, minimal task manager built with React and TypeScript, featuring user au
 
 ## Screenshots
 
+| Login | Sign Up | App | Settings |
+|-------|---------|-----|----------|
+| ![Login](./public/loop-login.jpeg) | ![Sign Up](./public/loop-account-creation.jpeg) | ![App](./public/loop.jpeg) | ![Settings](./public/loop-settings.png) |
+
 ## Project Structure
 
 ```

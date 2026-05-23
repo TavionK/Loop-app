@@ -97,7 +97,7 @@ export default function UpdatePassword() {
           </button>
         </form>
 
-        {error && <p className="text-red-500 text-sm mt-4">{error}</p>}
+        {error && <p role="alert" className="text-red-500 text-sm mt-4">{error}</p>}
 
         <GoogleOAuth />
       </div>

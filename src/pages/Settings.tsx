@@ -108,8 +108,10 @@ export default function Settings() {
             {editingName ? (
               <div className="flex flex-col gap-2">
                 <div className="flex items-center gap-2">
+                  <label htmlFor="nameInput" className="sr-only">Display Name</label>
                   <input
                     ref={nameInputRef}
+                    id="nameInput"
                     type="text"
                     value={nameInput}
                     onChange={(e) => setNameInput(e.target.value)}
@@ -122,21 +124,21 @@ export default function Settings() {
                   <button
                     onClick={handleSaveName}
                     disabled={savingName}
-                    title="Save"
+                    aria-label="Save name"
                     className="cursor-pointer p-1.5 text-green-600 border border-green-300 rounded-md hover:bg-green-50 transition-colors duration-200 disabled:opacity-50"
                   >
                     <Check size={15} />
                   </button>
                   <button
                     onClick={cancelEditing}
-                    title="Cancel"
+                    aria-label="Cancel editing"
                     className="cursor-pointer p-1.5 text-gray-500 border border-gray-300 rounded-md hover:bg-gray-50 transition-colors duration-200"
                   >
                     <X size={15} />
                   </button>
                 </div>
                 {nameError && (
-                  <p className="text-red-500 text-xs">{nameError}</p>
+                  <p role="alert" className="text-red-500 text-xs">{nameError}</p>
                 )}
               </div>
             ) : (
@@ -144,7 +146,7 @@ export default function Settings() {
                 <span className="text-gray-800">{displayName ?? "—"}</span>
                 <button
                   onClick={startEditing}
-                  title="Edit name"
+                  aria-label="Edit name"
                   className="cursor-pointer p-1 text-gray-400 hover:text-gray-700 transition-colors duration-200"
                 >
                   <Pencil size={14} />
@@ -181,7 +183,7 @@ export default function Settings() {
           Permanently deletes your account and all associated data. This cannot
           be undone.
         </p>
-        {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+        {error && <p role="alert" className="text-red-500 text-sm mb-4">{error}</p>}
         <button
           onClick={handleDeleteAccount}
           disabled={deleting}

@@ -42,7 +42,9 @@ export default function Signup() {
         </div>
 
         <form onSubmit={handleSignup}>
+          <label htmlFor="displayName" className="sr-only">Display Name</label>
           <input
+            id="displayName"
             className="input-box w-full"
             type="text"
             placeholder="Display Name"
@@ -51,7 +53,9 @@ export default function Signup() {
             required
           />
 
+          <label htmlFor="email" className="sr-only">Email</label>
           <input
+            id="email"
             className="input-box w-full"
             type="email"
             placeholder="Email"
@@ -60,7 +64,9 @@ export default function Signup() {
             required
           />
 
+          <label htmlFor="password" className="sr-only">Password</label>
           <input
+            id="password"
             className="input-box w-full"
             type="password"
             placeholder="Password"
@@ -69,7 +75,7 @@ export default function Signup() {
             required
           />
 
-          {error && <p className="error">{error}</p>}
+          {error && <p role="alert" className="error">{error}</p>}
           <p className="text-xs text-gray-500 mt-4">
             By signing up you agree to our{" "}
             <Link className="link" to="/terms-of-service">

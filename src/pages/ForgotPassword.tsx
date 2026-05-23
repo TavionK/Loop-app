@@ -36,7 +36,9 @@ export default function ForgotPassword() {
           </p>
         </div>
         <form onSubmit={handleResetPassword}>
+          <label htmlFor="email" className="sr-only">Email</label>
           <input
+            id="email"
             type="email"
             placeholder="Email"
             className="input-box w-full"
@@ -51,8 +53,8 @@ export default function ForgotPassword() {
           </button>
         </form>
 
-        {message && <p className="error text-sm mt-4">{message}</p>}
-        {error && <p className="text-red-500 text-sm mt-4">{error}</p>}
+        {message && <p role="alert" className="error text-sm mt-4">{message}</p>}
+        {error && <p role="alert" className="text-red-500 text-sm mt-4">{error}</p>}
       </div>
 
       <p className="text-center text-sm">

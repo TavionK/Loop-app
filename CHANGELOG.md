@@ -1,5 +1,13 @@
 # Changelog
 
+## v3.0.1
+
+### Bug Fixes
+
+- Fixed an issue where Google Sign-In on mobile would silently log users in with the wrong account instead of showing the account picker. The OAuth flow now always prompts account selection via `prompt: "select_account"`.
+
+---
+
 ## v3.0
 
 ## What's New
